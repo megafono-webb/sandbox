@@ -8,52 +8,17 @@
     <link rel="stylesheet" href="https://www.interjet.com.mx/css/bootstrap-theme.css" />
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        function onVisaCheckoutReady() {
-            V.init({
-                apikey: "6Y5YF2Y16TOKGN195SHW13oE2GZoBCczyTULu2npI1S4wU_QQ",
-                sourceId: "WEB SITE",
-                settings: {
-                    locale: "es_MX",
-                    countryCode: "MX",
-                    displayName: "Interjet",
-                    logoUrl: "https://www.interjet.com.mx/images/default.jpg",
-                    websiteUrl: "https://www.interjet.com.mx",
-                    payment: {
-                        cardBrands: [
-                         "VISA",
-                         "MASTERCARD", "AMEX"],
-                        acceptCanadianVisaDebit: "true",
-                        billingCountries: ["US", "MX", "GT", "CR", "CO"]
-                    },
-                    review: {
-                        message: "Maria apesta!!!, dice que se baño",
-                        buttonAction: "Continuar"
-                    },
-                    dataLevel: "FULL"
-                },
-                paymentRequest: {
-                    merchantRequestId: "ABC123",
-                    currencyCode: "MXN",
-                    subtotal: "8.00",
-                    tax: "2.00",
-                    total: "10.00",
-                    description: "RecordLocator",
-                    orderId: "BookingID",
-                }
-            }
-         );
-            V.on("payment.success", function (payment) {
-                alert(payment);
-
-                $("#JSON").val(JSON.stringify(payment));
-                
-                form1.submit();
-
-            });
-            V.on("payment.cancel", function (payment) { });
-            V.on("payment.error", function (payment, error) {});
-        }
-    </script>
+        <script>
+            if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').then(function(registration) {
+    // Registration was successful
+    console.log('ServiceWorker registration successful with scope: ',    registration.scope);
+  }).catch(function(err) {
+    // registration failed :(
+    console.log('ServiceWorker registration failed: ', err);
+  });
+}
+        </script>
 </head>
 <body>
     <form id="form1" runat="server">
