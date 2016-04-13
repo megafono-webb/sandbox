@@ -9,16 +9,29 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <script>
-            if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').then(function(registration) {
-    // Registration was successful
-    console.log('ServiceWorker registration successful with scope: ',    registration.scope);
-  }).catch(function(err) {
-    // registration failed :(
-    console.log('ServiceWorker registration failed: ', err);
-  });
+          
+var scope = 'hello/';
+var registration;
+function register() {
+  navigator.serviceWorker.register('service-worker.js', {scope: scope})
+    .then(function(r) {
+      console.log('registered: ');
+      registration = r;
+      console.log(registration);
+    })
+    .catch(function(whut) {
+      console.error('uh oh... ');
+      console.error(whut);
+    });
 }
-        </script>
+function unregister() {
+  registration.unregister()
+    .then(function() {
+      console.log('unregistered');
+    });
+}
+</script>
+ 
 </head>
 <body>
     <form id="form1" runat="server">
@@ -50,6 +63,8 @@
             </div>
             <div class="container">
                 Ok aqui va codigo
+                <button onclick="register()">Register</button>
+<button onclick="unregister()">Unregister</button>
             </div>
             <div class="bg-light-gray marg-top-20 marg-bottom-20">
                 <div class="container">
